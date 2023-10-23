@@ -5,6 +5,8 @@ VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BridgetSandalsAPI", "BridgetSandalsAPI\BridgetSandalsAPI.csproj", "{A28A92E6-1987-4E41-AC48-91EA83CAB90C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BridgetSandalsClient", "BridgetSandalsClient\BridgetSandalsClient.csproj", "{63494FCD-A9E3-4BFB-903F-61EB2DBC0D06}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{A28A92E6-1987-4E41-AC48-91EA83CAB90C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A28A92E6-1987-4E41-AC48-91EA83CAB90C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A28A92E6-1987-4E41-AC48-91EA83CAB90C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63494FCD-A9E3-4BFB-903F-61EB2DBC0D06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63494FCD-A9E3-4BFB-903F-61EB2DBC0D06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63494FCD-A9E3-4BFB-903F-61EB2DBC0D06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63494FCD-A9E3-4BFB-903F-61EB2DBC0D06}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
