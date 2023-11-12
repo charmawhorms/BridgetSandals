@@ -15,53 +15,68 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
+
+    <!--Google font - Domine-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Domine&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <div class="d-flex justify-content-between bg-danger p-2">
-            <p class="dm-font m-0" style="font-size: 14px;">Shipping and delivery options are available</p>
-            <!--Feature for google translate-->
-            <span></span>
-            <div class="d-flex justify-content-between" style="width: 5%;">
-                <a href="https://twitter.com/BridgetSandals"><i class="fa-brands fa-x-twitter" style="color: #000000;"></i></a>
-                <a href="https://www.facebook.com/BridgetSandals"><i class="fa-brands fa-facebook-f" style="color: #000000;"></i></a>
-                <a href="https://www.instagram.com/bridgetsandalsja"><i class="fa-brands fa-instagram" style="color: #000000;"></i></a>
+        <div class="m-2">
+            <div class="d-flex justify-content-between align-items-center">
+                <p class="domine-font f-12 m-0 fw-bold">Shipping and delivery options are available</p>
+                <!--Feature for google translate-->
+                <span></span>
+                <div class="d-flex justify-content-between" style="width: 5%;">
+                    <a href="https://twitter.com/BridgetSandals"><i class="fa-brands fa-x-twitter" style="color: #000000;"></i></a>
+                    <a href="https://www.facebook.com/BridgetSandals"><i class="fa-brands fa-facebook-f" style="color: #000000;"></i></a>
+                    <a href="https://www.instagram.com/bridgetsandalsja"><i class="fa-brands fa-instagram" style="color: #000000;"></i></a>
+                </div>
             </div>
         </div>
 
-        <div class="navbar navbar-expand-sm navbar-toggleable-sm">
+        <div class="navbar-expand-sm navbar-toggleable-sm">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
+            <div class="navbar-collapse collapse d-sm-inline-flex bg-black justify-content-between">
+                <ul class="navbar-nav flex-grow-1 domine-font f-12 p-2 align-items-center justify-content-center">
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Category" asp-action="Index">Categories</a>
+                        <a class="nav-link text-light" asp-area="" asp-controller="Product" asp-action="Index">Products</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Index">Products</a>
+                        <a class="nav-link text-light" asp-area="" asp-controller="GiftCard" asp-action="Index">Gift Card</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="GiftCard" asp-action="Index">Gift Card</a>
+                        <a class="nav-link text-light" asp-area="" asp-controller="Review" asp-action="Index">Reviews</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Review" asp-action="Index">Reviews</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">
-                            <img scr="/" width="" height="" alt="Logo" />
+                        <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">
+                            <img src="~/Bridget Sandals Logo (1).png" width="150" height="65.72" alt="Logo"/>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="AboutUs" asp-action="Index">About Us</a>
+                        <a class="nav-link text-light" asp-area="" asp-controller="AboutUs" asp-action="Index">About Us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="ContactUs" asp-action="Index">Contact Us</a>
+                        <a class="nav-link text-light" asp-area="" asp-controller="ContactUs" asp-action="Index">Contact Us</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" asp-area="" asp-controller="ContactUs" asp-action="Index">
+                            <i class="fa-regular fa-user fa-xl" style="color: #ffffff;"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" asp-area="" asp-controller="ContactUs" asp-action="Index">
+                            <i class="fa-solid fa-cart-plus fa-xl" style="color: #ffffff;"></i>
+                        </a>
+                    </li>
+                    
                 </ul>
             </div>
         </div>
@@ -87,10 +102,10 @@
             </div>
         </nav>
     </header>*@
-    <div class="container">
-        <main role="main" class="pb-3">
+    <div class="container2">
+        @*<main role="main2" class="pb-32">*@
             @RenderBody()
-        </main>
+        @*</main>*@
     </div>
 
     <footer class="border-top footer text-muted">

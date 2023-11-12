@@ -17,6 +17,92 @@ body {
   margin-bottom: 60px;
 }
 
-.dm-font {
+.domine-font {
+    font-family: 'Domine', serif;
+}
+
+.dm-serif-font {
     font-family: 'DM Serif Display', serif;
+}
+
+.f-12{
+    font-size: 12px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+
+.box1, .box2, .box3, .box4 {
+    width: 100%;
+    padding: 10px;
+    margin: 0px;
+}
+
+.box1 p, .box2 p, .box3 p, .box4 p {
+    margin: 0px;
+}
+
+
+/* Grid */
+
+.column {
+    flex-basis: 100%;
+}
+
+@media screen and (min-width: 800px) {
+    .row {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        text-align: center;
+    }
+
+    .column {
+        flex: 1;
+        text-align: center;
+    }
+}
+/* Style */
+.column {
+    padding: 15px;
+    gap: 10px;
+    margin: 5px 0;
+}
+
+.search-box {
+    display: flex;
+    justify-content: space-between;
+    background-color: #499676;
+    align-items: center;
+    padding: 10px 20%;
+}
+
+.search-box input{
+    width: 100%;
+    border: none;
+    padding: 5px;
+    border-radius: 5px 0px 0px 5px;
+}
+
+.search-box span{
+    display: flex;
+    width: 50%;
+}
+
+.search-box span img{
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 0px 5px 5px 0px;
+}
+
+.customer-rep {
+    display: flex;
+    align-items: center;
+    background-color: azure;
+    padding: 10px;
+    border-radius: 5px;
 }
