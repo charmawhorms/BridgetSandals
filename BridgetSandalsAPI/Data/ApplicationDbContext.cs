@@ -22,7 +22,7 @@ namespace BridgetSandalsAPI.Data
 
         public DbSet<Product> Products { get; set; }
 
-        public DbSet<ProductVariant> ProductVariants { get; set; }
+        //public DbSet<ProductVariant> ProductVariants { get; set; }
 
         //public DbSet<Discount> Discounts { get; set; }
 
@@ -42,18 +42,18 @@ namespace BridgetSandalsAPI.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ProductDiscount>()
-                .HasKey(pd => new { pd.ProductId, pd.DiscountId });
+            //modelBuilder.Entity<ProductDiscount>()
+            //    .HasKey(pd => new { pd.ProductId, pd.DiscountId });
 
             //modelBuilder.Entity<ProductDiscount>()
             //    .HasOne(pd => pd.Product)
             //    .WithMany(p => p.ProductDiscounts)
             //    .HasForeignKey(pd => pd.ProductId);
 
-            modelBuilder.Entity<ProductDiscount>()
-                .HasOne(pd => pd.Discount)
-                .WithMany(d => d.ProductDiscounts)
-                .HasForeignKey(pd => pd.DiscountId);
+            //modelBuilder.Entity<ProductDiscount>()
+            //    .HasOne(pd => pd.Discount)
+            //    .WithMany(d => d.ProductDiscounts)
+            //    .HasForeignKey(pd => pd.DiscountId);
 
 
 
@@ -66,10 +66,10 @@ namespace BridgetSandalsAPI.Data
                 .OnDelete(DeleteBehavior.Restrict);
 
 
-            modelBuilder.Entity<Product>()
-                .HasMany(p => p.Variants)
-                .WithOne(v => v.Product)
-                .OnDelete(DeleteBehavior.Cascade);
+            //modelBuilder.Entity<Product>()
+            //    .HasMany(p => p.Variants)
+            //    .WithOne(v => v.Product)
+            //    .OnDelete(DeleteBehavior.Cascade);
         }
 
     }

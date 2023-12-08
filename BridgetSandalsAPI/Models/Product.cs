@@ -43,7 +43,7 @@ namespace BridgetSandalsAPI.Models
         public virtual Category? Category { get; set; }
 
 
-        public virtual ICollection<ProductVariant>? Variants { get; set; }
+        //public virtual ICollection<ProductVariant>? Variants { get; set; }
 
         //public virtual ICollection<ProductDiscount>? ProductDiscounts { get; set; }
 

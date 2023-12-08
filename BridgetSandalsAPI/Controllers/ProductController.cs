@@ -24,10 +24,7 @@ namespace BridgetSandalsAPI.Controllers
         [HttpGet]
         public IActionResult GetProducts()
         {
-            var products = _db.Products
-                .Include(x => x.Category)
-                .Include(x => x.Variants) // Include ProductVariants
-                .ToList();
+            var products = _db.Products.Include(x => x.Category).ToList();
 
             if (products == null)
             {
@@ -106,28 +103,26 @@ namespace BridgetSandalsAPI.Controllers
                     // Save the product to the db using the data access logic
                     _db.Products.Add(product);
 
-                    // Create a list to hold variants to be added to the database
-                    //var variantsToAdd = new List<ProductVariant>();
+                    #region
+                    //// Add ProductVariants (if available) to the Product
+                    //if (model.Variants != null && model.Variants.Any())
+                    //{
+                    //    foreach (var variantDto in model.Variants)
+                    //    {
+                    //        var variant = new ProductVariant
+                    //        {
+                    //            Color = variantDto.Color,
+                    //            Size = variantDto.Size,
+                    //            Price = variantDto.Price,
+                    //            Quantity = variantDto.Quantity,
+                    //            Product = product                             
+                    //        };
 
-
-                    // Add ProductVariants (if available) to the Product
-                    if (model.Variants != null && model.Variants.Any())
-                    {
-                        foreach (var variantDto in model.Variants)
-                        {
-                            var variant = new ProductVariant
-                            {
-                                Color = variantDto.Color,
-                                Size = variantDto.Size,
-                                Price = variantDto.Price,
-                                Quantity = variantDto.Quantity,
-                                Product = product                             
-                            };
-
-                            // Add the ProductVariant entity to the context
-                            _db.ProductVariants.Add(variant);
-                        }
-                    }
+                    //        // Add the ProductVariant entity to the context
+                    //        _db.ProductVariants.Add(variant);
+                    //    }
+                    //}
+                    #endregion
 
                     await _db.SaveChangesAsync();
 
@@ -179,65 +174,65 @@ namespace BridgetSandalsAPI.Controllers
                 // Update the existing product in the db
                 _db.Products.Update(existingProduct);
 
+                #region
+                //// Update product variants (if available) to the Product
+                //if (model.Variants != null && model.Variants.Any())
+                //{
+                //    // Remove existing variants not present in the update
+                //    var existingVariants = _db.ProductVariants.Where(v => v.ProductId == id).ToList();
+                //    foreach (var existingVariant in existingVariants)
+                //    {
+                //        var variantDto = model.Variants.FirstOrDefault(v => v.Id == existingVariant.Id);
+                //        if (variantDto == null)
+                //        {
+                //            _db.ProductVariants.Remove(existingVariant);
+                //        }
+                //    }
 
-                // Update product variants (if available) to the Product
-                if (model.Variants != null && model.Variants.Any())
-                {
-                    // Remove existing variants not present in the update
-                    var existingVariants = _db.ProductVariants.Where(v => v.ProductId == id).ToList();
-                    foreach (var existingVariant in existingVariants)
-                    {
-                        var variantDto = model.Variants.FirstOrDefault(v => v.Id == existingVariant.Id);
-                        if (variantDto == null)
-                        {
-                            _db.ProductVariants.Remove(existingVariant);
-                        }
-                    }
+                //    // Update or Add new variants
+                //    foreach (var variantDto in model.Variants)
+                //    {
+                //        if (variantDto.Id > 0)
+                //        {
+                //            var existingVariant = await _db.ProductVariants.FindAsync(variantDto.Id);
+                //            if (existingVariant != null)
+                //            {
+                //                existingVariant.Color = variantDto.Color;
+                //                existingVariant.Size = variantDto.Size;
+                //                existingVariant.Price = variantDto.Price;
+                //                existingVariant.Quantity = variantDto.Quantity;
+                //            }
+                //            else
+                //            {
+                //                // Create new variant
+                //                var newVariant = new ProductVariant
+                //                {
+                //                    ProductId = id,
+                //                    Color = variantDto.Color,
+                //                    Size = variantDto.Size,
+                //                    Price = variantDto.Price,
+                //                    Quantity = variantDto.Quantity
+                //                };
+                //                _db.ProductVariants.Add(newVariant);
+                //            }
+                //        }
+                //        else
+                //        {
+                //            // Create new variant
+                //            var newVariant = new ProductVariant
+                //            {
+                //                ProductId = id,
+                //                Color = variantDto.Color,
+                //                Size = variantDto.Size,
+                //                Price = variantDto.Price,
+                //                Quantity = variantDto.Quantity
+                //            };
 
-                    // Update or Add new variants
-                    foreach (var variantDto in model.Variants)
-                    {
-                        if (variantDto.Id > 0)
-                        {
-                            var existingVariant = await _db.ProductVariants.FindAsync(variantDto.Id);
-                            if (existingVariant != null)
-                            {
-                                existingVariant.Color = variantDto.Color;
-                                existingVariant.Size = variantDto.Size;
-                                existingVariant.Price = variantDto.Price;
-                                existingVariant.Quantity = variantDto.Quantity;
-                            }
-                            else
-                            {
-                                // Create new variant
-                                var newVariant = new ProductVariant
-                                {
-                                    ProductId = id,
-                                    Color = variantDto.Color,
-                                    Size = variantDto.Size,
-                                    Price = variantDto.Price,
-                                    Quantity = variantDto.Quantity
-                                };
-                                _db.ProductVariants.Add(newVariant);
-                            }
-                        }
-                        else
-                        {
-                            // Create new variant
-                            var newVariant = new ProductVariant
-                            {
-                                ProductId = id,
-                                Color = variantDto.Color,
-                                Size = variantDto.Size,
-                                Price = variantDto.Price,
-                                Quantity = variantDto.Quantity
-                            };
-
-                            _db.ProductVariants.Add(newVariant);
-                        }
-                    }
-                }
-
+                //            _db.ProductVariants.Add(newVariant);
+                //        }
+                //    }
+                //}
+                #endregion
 
                 await _db.SaveChangesAsync();
 

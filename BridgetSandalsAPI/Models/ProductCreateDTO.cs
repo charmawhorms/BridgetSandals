@@ -24,7 +24,7 @@ namespace BridgetSandalsAPI.Models
         public IFormFile? ProductImageFile { get; set; }
 
 
-        public virtual ICollection<ProductVariant> Variants { get; set; }
+        //public virtual ICollection<ProductVariant> Variants { get; set; }
 
         //public virtual ICollection<ProductDiscount> ProductDiscounts { get; set; }
     }

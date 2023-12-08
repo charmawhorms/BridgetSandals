@@ -1,0 +1,80 @@
+﻿@model BridgetSandalsClient.Models.ViewModel.ProductCategoryVM
+@{
+    ViewData["Title"] = "Products";
+}
+
+<div class="d-flex justify-content-between">
+    <div class="d-flex flex-column" style="width: 63%; background-color: #6D92B6; padding: 7rem 8rem 7rem 3rem;">
+        <p class="fw-light text-light m-0">
+            FIND THE SANDAL THAT SUITS YOU!
+        </p>
+
+        <h1 class="fw-bold text-light mb-3">
+            Handmade with Love: Shop Our Unique Selection of Sandals
+        </h1>
+
+        <p class="text-light" style="padding-right: 18em">
+            Explore our curated selection of sandals for every style and occasion.
+        </p>
+    </div>
+    <div class="" style="width: 37%">
+        <img src="/assets/chain-with-bg.png" width="100%" height="auto" />
+    </div>
+</div>
+
+<div class="p-5">
+    <p>Psst...discounts are <strong>available</strong></p>
+</div>
+
+<div class="w-100 d-flex justify-content-end">
+    <div class="w-75 px-5">
+        <button class="shop-all-filter filter-button" data-filter="all">Shop All</button>
+        @foreach (var obj in Model.Categories)
+        {
+            <button class="shop-all-filter filter-button" data-filter="@obj.Name.Replace(' ','_')">
+                @obj.Name
+            </button>
+        }<hr class="mt-0" />
+    </div>
+</div>
+
+
+
+<div class="d-flex justify-content-between w-100 px-5">
+    <div class="w-25">
+        <p class="fs-5">Price</p>
+    </div>
+    <div class="row w-75 d-flex">
+        <p class="fw-light mb-3" style="text-align: left;">@Model.Products.Count() products</p>
+        @foreach (var product in Model.Products)
+        {
+            //Displays list of Products
+            @await Html.PartialAsync("_ProductCardView", product)
+        }
+    </div>
+</div>
+
+
+<div class="w-100 d-flex justify-content-center">
+    <p class="text-center w-50 fs-5">
+        Feel empowered with every step you take in our sandals,
+        crafted to enhance your confidence and make you feel unstoppable.
+    </p>
+</div>
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $(".filter-button").click(function () {
+                var value = $(this).attr('data-filter');
+                if (value == "all") {
+                    $('.filter').show('1000');
+                } else {
+                    $(".filter").not('.' + value).hide('3000');
+                    $(".filter").filter('.' + value).show('3000');
+                }
+            });
+        });
+    </script>
+}

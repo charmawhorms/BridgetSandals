@@ -19,6 +19,6 @@
         public IFormFile? ProductImageFile { get; set; }
 
 
-        public virtual ICollection<ProductVariant> Variants { get; set; }
+        //public virtual ICollection<ProductVariant> Variants { get; set; }
     }
 }

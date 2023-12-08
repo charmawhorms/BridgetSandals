@@ -28,7 +28,7 @@ namespace BridgetSandalsClient.Models
 
 
         [DisplayName("Category")]
-        public int? CategoryId { get; set; }
+        public int CategoryId { get; set; }
 
 
         public string? ProductImageFilePath { get; set; } = String.Empty;
@@ -38,6 +38,6 @@ namespace BridgetSandalsClient.Models
         public Category? Category { get; set; }
 
 
-        public ICollection<ProductVariant>? Variants { get; set; }
+        //public ICollection<ProductVariant>? Variants { get; set; }
     }
 }

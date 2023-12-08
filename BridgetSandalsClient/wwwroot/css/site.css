@@ -106,3 +106,118 @@ body {
     padding: 10px;
     border-radius: 5px;
 }
+
+/*Carousel*/
+.scrolling-text-brands {
+    overflow-x: hidden;
+    animation: scroll-left 10s linear infinite;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+@keyframes scroll-left {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-100vw);
+    }
+}
+
+
+/*Product Cards*/
+.card-overlay {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+}
+
+.card:hover .card-overlay {
+    display: block;
+}
+
+.card-overlay .btn {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.card:hover .card-overlay .btn {
+    opacity: 1;
+}
+
+.shop-all-filter {
+    background-color: #ffffff;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    text-decoration: none;
+    position: relative;
+    font-weight: 300;
+}
+
+.shop-all-filter:focus,
+.shop-all-filter:active {
+    outline: none;
+}
+
+.shop-all-filter::after {
+    content: '';
+    position: absolute;
+    bottom: 1px;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: transparent;
+    transition: background-color 0.3s ease;
+}
+
+.shop-all-filter:focus::after,
+.shop-all-filter:active::after {
+    background-color: #499676;
+}
+
+
+.buy-now {
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+    display: block;
+    background-image: linear-gradient(45deg, #113034 10%, #266F78 51%, #113034 100%);
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    border: 1px solid #000000;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.buy-now:hover {
+    background-position: right center;
+    color: #fff;
+    text-decoration: none;
+}
+
+.buy-now:active {
+    transform: scale(0.95);
+}
+
+.add-to-cart-btn {
+    text-align: center;
+    border: 1px solid #000000;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: 500;
+}

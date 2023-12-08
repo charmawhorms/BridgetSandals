@@ -1,0 +1,42 @@
+﻿@model BridgetSandalsClient.Models.ViewModel.ProductCartVM
+
+<div class="p-5 w-100 d-flex justify-content-between">
+    <div class="w-50" style="background-color: #ECE3D4">
+        <img src="@Model.Products.ProductImageFilePath" width="100%" height="auto" />
+    </div>
+    <div class="w-50 px-5">
+        @if (Model.Categories != null)
+        {
+            <p>@Model.Categories.Name</p>
+        }
+
+        <h1>@Model.Products.Name</h1> <hr />
+
+        <p style="font-weight: 500; margin-bottom: 35px">Product Details</p>
+
+        <p class="fw-light fs-3">@Model..Products.Description</p>
+
+        <h5><span style="font-size: 14px;">$</span>@Model..Products.Price</h5>
+
+        <div class="d-flex flex-column w-100" style="margin-top: 5em">
+            @*<a class="add-to-cart-btn text-decoration-none text-black" asp-controller="Cart" asp-action="AddToCart" asp-route-productId="@Model.Id">Add to Cart</a>
+            *@
+
+            @using (Html.BeginForm("AddToCart", "Cart", FormMethod.Post))
+            {
+                <!-- Include input fields for productId, cartId, and quantity -->
+                @Html.HiddenFor(m => m.CartItems.ProductId) <!-- Assuming you have these properties in your ViewModel -->
+                @Html.HiddenFor(m => m.CartItems.CartId)
+                @Html.HiddenFor(m => m.CartItems.Quantity)
+
+                <!-- Button or link to submit the form -->
+                <button type="submit">Add to Cart</button>
+            }
+            
+            
+            
+            <a class="buy-now mt-1" asp-controller="" asp-action="">Buy Now</a>
+        </div>
+    </div>
+</div>
+
