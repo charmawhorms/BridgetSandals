@@ -1,4 +1,6 @@
 ﻿using BridgetSandalsClient.Models;
+using BridgetSandalsClient.Utils;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Text;
@@ -7,115 +9,82 @@ namespace BridgetSandalsClient.Controllers
 {
     public class CartController : Controller
     {
-        Uri baseAddress = new Uri("https://localhost:7027/cart");
-        private readonly HttpClient _client;
-
-        public CartController()
+        // Display the cart
+        public IActionResult Index()
         {
-            _client = new HttpClient();
-            _client.BaseAddress = baseAddress;
+            var cart = GetCart();
+            return View(cart);
         }
 
 
-        // Action to view the cart
-        [HttpGet]
-        public IActionResult ViewCart()
+
+        // Get the cart from session or create a new one
+        private List<ShoppingCart> GetCart()
         {
-            var response = _client.GetAsync(_client.BaseAddress).Result;
-            if (response.IsSuccessStatusCode)
+            var cart = HttpContext.Session.Get<List<ShoppingCart>>("Cart");
+            return cart ?? new List<ShoppingCart>();
+        }
+
+
+        // Save the cart to session
+        private void SaveCart(List<ShoppingCart> cart)
+        {
+            HttpContext.Session.Set("Cart", cart);
+        }
+
+
+        // Add an item to the cart
+        public IActionResult AddToCart(int productId, string productName, decimal price, int quantity = 1)
+        {
+            var cart = GetCart();
+
+            // Check if the product is already in the cart, if so, update the quantity
+            var existingItem = cart.FirstOrDefault(item => item.ProductId == productId);
+            if (existingItem != null)
             {
-                var cart = response.Content.ReadAsStringAsync().Result; // Replace "Cart" with your cart model
-                return View(cart);
+                existingItem.Quantity += quantity;
             }
             else
             {
-                // Handle failure (e.g., show error message)
-                TempData["ErrorMessage"] = "Failed to load cart!";
-                return RedirectToAction("Index", "Home"); // Redirect to a different action
-            }
-        }
-
-
-        //// Action to add a product to the cart
-        //[HttpPost]
-        //public async Task<IActionResult> AddToCart(int productId)
-        //{
-        //    var response = await _client.PostAsync($"{_client.BaseAddress}/{productId}", null);
-        //    if (response.IsSuccessStatusCode)
-        //    {
-        //        // Handle success (e.g., show success message)
-        //        TempData["Message"] = "Product added to cart!";
-        //    }
-        //    else
-        //    {
-        //        // Handle failure (e.g., show error message)
-        //        TempData["ErrorMessage"] = "Failed to add product to cart!";
-        //    }
-        //    return RedirectToAction("Index", "Home"); // Redirect to a different action
-        //}
-
-
-        [HttpPost]
-        public async Task<IActionResult> AddToCart(int productId, int cartId, int quantity)
-        {
-            try
-            {
-                // Create a CartItem object representing an item to be added to the cart
-                var cartItem = new
+                // If the product is not in the cart, add it
+                var newItem = new ShoppingCart
                 {
-                    CartId = cartId,
                     ProductId = productId,
+                    ProductName = productName,
+                    Price = price,
                     Quantity = quantity
                 };
-
-                // Serialize the CartItem object to JSON
-                var jsonCartItem = JsonConvert.SerializeObject(cartItem);
-
-                // Create StringContent from JSON
-                var content = new StringContent(jsonCartItem, Encoding.UTF8, "application/json");
-
-                // Send the request to the API endpoint for adding a cart item to the cart
-                var response = await _client.PostAsync("https://localhost:7027/cart", content);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    // Handle success (e.g., show success message)
-                    TempData["Message"] = "Product added to cart!";
-                }
-                else
-                {
-                    // Handle failure (e.g., show error message)
-                    TempData["ErrorMessage"] = "Failed to add product to cart!";
-                }
+                cart.Add(newItem);
             }
-            catch (Exception ex)
-            {
-                // Handle exceptions
-                TempData["ErrorMessage"] = "An error occurred while adding the product to the cart.";
-            }
+
+            SaveCart(cart);
 
             return RedirectToAction("Index", "Home"); // Redirect to a different action
         }
 
 
-
-
-        // Action to remove a product from the cart
-        [HttpPost]
-        public async Task<IActionResult> RemoveFromCart(int productId)
+        // Remove an item from the cart
+        public IActionResult RemoveFromCart(int productId)
         {
-            var response = await _client.DeleteAsync($"api/cart/removefromcart/{productId}");
-            if (response.IsSuccessStatusCode)
+            var cart = GetCart();
+            var itemToRemove = cart.FirstOrDefault(item => item.ProductId == productId);
+
+            if (itemToRemove != null)
             {
-                // Handle success (e.g., show success message)
-                TempData["Message"] = "Product removed from cart!";
+                cart.Remove(itemToRemove);
+                SaveCart(cart);
             }
-            else
-            {
-                // Handle failure (e.g., show error message)
-                TempData["ErrorMessage"] = "Failed to remove product from cart!";
-            }
-            return RedirectToAction("ViewCart");
+
+            return RedirectToAction("Index", "Cart");
+        }
+
+
+        public int GetCartItemCount()
+        {
+            var cart = HttpContext.Session.Get<List<ShoppingCart>>("Cart");
+            int itemCount = cart?.Count ?? 0; // If cart is null, set itemCount to 0; otherwise, count the items
+
+            return itemCount;
         }
     }
 }
