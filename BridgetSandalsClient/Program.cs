@@ -3,10 +3,7 @@ using BridgetSandalsClient.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews(options =>
-{
-    options.Filters.Add(new CartItemCountAttribute());
-});
+builder.Services.AddControllersWithViews();
 
 builder.Services.AddSession();
 

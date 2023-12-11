@@ -1,5 +1,9 @@
 ﻿@model BridgetSandalsClient.Models.Product
 
+<div id="confirmationMessage" class="alert alert-success" style="display: none;">
+    Product added to cart!
+</div>
+
 <div class="p-5 w-100 d-flex justify-content-between">
     <div class="w-50" style="background-color: #ECE3D4">
         <img src="@Model.ProductImageFilePath" width="100%" height="auto" />
@@ -23,14 +27,71 @@
             <!-- Form for adding items to the cart -->
             <form asp-controller="Cart" asp-action="AddToCart" method="post">
                 <input type="hidden" name="productId" value="@Model.Id" />
+                <input type="hidden" name="productImage" value="@Model.ProductImageFilePath" />
                 <input type="hidden" name="productName" value="@Model.Name" />
                 <input type="hidden" name="price" value="@Model.Price" />
-                <input type="number" name="quantity" value="1" min="1" /> <!-- Allow user to input quantity -->
-                <button class="add-to-cart-btn text-black" type="submit">Add to Cart</button>
+                <div class="d-flex flex-column">
+                    <input class="w-25 mb-5" type="number" name="quantity" value="1" min="1" /> <!-- Allow user to input quantity -->
+                    <button class="add-to-cart-btn" type="submit">Add to Cart</button>
+                </div>
+                
             </form>
 
             <a class="buy-now mt-1" asp-controller="" asp-action="">Buy Now</a>
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $("form").submit(function (event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            var form = $(this);
+            $.ajax({
+                type: form.attr('method'),
+                url: form.attr('action'),
+                data: form.serialize(),
+                success: function (response) {
+                    // Show SweetAlert toast notification
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Product added to cart!',
+                        showConfirmButton: false,
+                        timer: 2000 // Display for 2 seconds
+                    }).then(function () {
+                        // Update cart count after displaying success message
+                        updateCartCount();
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                    // Handle errors if needed
+                }
+            });
+        });
+
+        // Function to update cart count
+        function updateCartCount() {
+            $.ajax({
+                url: '/Cart/GetCartItemCount', // Endpoint to get cart item count
+                type: 'GET',
+                success: function (response) {
+                    // Update the cart count element with the new count
+                    $('#cartItemCount').text(response);
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                    // Handle errors if needed
+                }
+            });
+        }
+
+        // Initially load cart count when the page loads
+        updateCartCount();
+    });
+</script>
+
+
+
 

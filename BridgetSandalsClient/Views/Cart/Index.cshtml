@@ -16,6 +16,9 @@
                 @Html.DisplayNameFor(model => model.ProductId)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.ProductImageFilePath)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.ProductName)
             </th>
             <th>
@@ -32,6 +35,11 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.ProductId)
+            </td>
+            <td>
+                <div style="background-color: #ECE3D4; width: 60px; height: 60px">
+                    <img src="@item.ProductImageFilePath" width="60" height="60" alt="Product Image" />
+                </div>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ProductName)

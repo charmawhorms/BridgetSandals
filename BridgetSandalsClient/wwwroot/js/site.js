@@ -11,7 +11,7 @@
 
 $('.carousel').carousel({
     interval: 2000
-})
+});
 
 $('.scrolling-text-brands').slick({
     autoplay: true,

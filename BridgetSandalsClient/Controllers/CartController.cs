@@ -34,7 +34,7 @@ namespace BridgetSandalsClient.Controllers
 
 
         // Add an item to the cart
-        public IActionResult AddToCart(int productId, string productName, decimal price, int quantity = 1)
+        public IActionResult AddToCart(int productId, string productImage, string productName, decimal price, int quantity = 1)
         {
             var cart = GetCart();
 
@@ -50,6 +50,7 @@ namespace BridgetSandalsClient.Controllers
                 var newItem = new ShoppingCart
                 {
                     ProductId = productId,
+                    ProductImageFilePath = productImage,
                     ProductName = productName,
                     Price = price,
                     Quantity = quantity
@@ -59,7 +60,7 @@ namespace BridgetSandalsClient.Controllers
 
             SaveCart(cart);
 
-            return RedirectToAction("Index", "Home"); // Redirect to a different action
+            return RedirectToAction("Index", "Product");
         }
 
 
@@ -79,6 +80,7 @@ namespace BridgetSandalsClient.Controllers
         }
 
 
+        //Counts the items in the cart
         public int GetCartItemCount()
         {
             var cart = HttpContext.Session.Get<List<ShoppingCart>>("Cart");
