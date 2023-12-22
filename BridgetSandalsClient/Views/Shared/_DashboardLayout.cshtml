@@ -26,15 +26,95 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    
+    <!--Google Icon-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
 </head>
 <body>
     <header>
         <div></div>
     </header>
-    <div class="container2">
-        @*<main role="main2" class="pb-32">*@
-        @RenderBody()
-        @*</main>*@
+    <div class="container2 d-flex">
+        <div class="position-fixed side-nav-main" style="z-index: 5">
+            <div class="d-flex flex-column" style="height: 100%">
+                <div class="d-flex justify-content-center w-100 p-3">
+                    <img src="/assets/Bridget Sandals Logo (2).png" width="160" height="60" alt="Logo" />
+                </div>
+
+                <div>
+                    <ul class="list-unstyled flex-grow-1 pt-4">
+                        <li class="nav-item my-2 side-link">
+                            <a class="nav-link d-flex align-items-center" asp-area="" asp-controller="Dashboard" asp-action="Index">
+                                <span class="material-symbols-outlined" style="margin-right: 10px; font-weight: 300">
+                                    dashboard
+                                </span>
+                                <p class="m-0" style="font-size: 14px">Dashboard</p>
+                            </a>
+                        </li>
+                        <li class="nav-item my-2 side-link">
+                            <a class="nav-link d-flex align-items-center" asp-area="" asp-controller="AdminProduct" asp-action="Index">
+                                <span class="material-symbols-outlined" style="margin-right: 10px; font-weight: 300">
+                                    view_list
+                                </span>
+                                <p class="m-0" style="font-size: 14px">Products</p>
+                            </a>
+                        </li>
+                        <li class="nav-item my-2 side-link">
+                            <a class="nav-link d-flex align-items-center" asp-area="" asp-controller="Employee" asp-action="Index">
+                                <span class="material-symbols-outlined" style="margin-right: 10px; font-weight: 300">
+                                    badge
+                                </span>
+                                <p class="m-0" style="font-size: 14px">Employees</p>
+                            </a>
+                        </li>
+                        <li class="nav-item my-2 side-link">
+                            <a class="nav-link d-flex align-items-center" asp-area="" asp-controller="Payment" asp-action="Index">
+                                <span class="material-symbols-outlined" style="margin-right: 10px; font-weight: 300">
+                                    work_history
+                                </span>
+                                <p class="m-0" style="font-size: 14px">Employee History</p>
+                            </a>
+                        </li>
+                        <li class="nav-item my-2 side-link">
+                            <a class="nav-link d-flex align-items-center" asp-area="" asp-controller="ClockInAndOut" asp-action="Index">
+                                <span class="material-symbols-outlined" style="margin-right: 10px; font-weight: 300">
+                                    punch_clock
+                                </span>
+                                <p class="m-0" style="font-size: 14px">Time Sheet</p>
+                            </a>
+                        </li>
+                        <li class="nav-item my-2 side-link" style="">
+                            <a class="nav-link d-flex align-items-center" asp-area="" asp-controller="Authenticate" asp-action="LogOut">
+                                <span class="material-symbols-outlined" style="margin-right: 10px; font-weight: 300">
+                                    logout
+                                </span>
+                                <p class="m-0" style="font-size: 14px">Sign Out</p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="position-fixed" style="margin-left: 18%; width: 82%; z-index:40; box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;">
+            <div class="d-flex justify-content-between align-items-center" style="background-color: #ffffff; padding: 10px 40px; z-index: 99">
+                <h5 class="g-font-color fw-bold">@ViewData["Title"]</h5>
+                <div class="d-flex align-items-center">
+                    <input type="text" placeholder="Search" />
+                    <img src="~/assets/guy.jpg" width="40" height="40" class="rounded-circle me-2" />
+                    <div class="d-flex flex-column">
+                        <h6 class="mb-0">Welcome</h6>
+                        <p class="mb-0" style="font-size: 12px">@ViewBag.LogInUser</p>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div style="margin-left: 18%; padding: 80px 30px; background-color: #F8F8F9; width: 100%; height:auto">
+            @RenderBody()
+        </div>
     </div>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

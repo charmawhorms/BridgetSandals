@@ -1,0 +1,16 @@
+﻿@model BridgetSandalsClient.Models.ViewModel.ProductCategoryVM
+@{
+    Layout = "_DashboardLayout";
+}
+<h1>Products</h1>
+
+<div class="w-100">
+    <div class="row w-100">
+        <p class="fw-light mb-3" style="text-align: left;">@Model.Products.Count() products</p>
+        @foreach (var product in Model.Products)
+        {
+            //Displays list of Products
+            @await Html.PartialAsync("_AdminProductCardView", product)
+        }
+    </div>
+</div>
