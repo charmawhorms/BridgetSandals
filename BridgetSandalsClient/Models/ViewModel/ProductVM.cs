@@ -9,6 +9,7 @@ namespace BridgetSandalsClient.Models.ViewModel
 
         public string Name { get; set; }
 
+        [DisplayName("Short Description")]
         public string ShortDescription { get; set; }
 
         public string Description { get; set; }

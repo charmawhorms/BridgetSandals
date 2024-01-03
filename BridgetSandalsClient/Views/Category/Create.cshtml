@@ -1,0 +1,42 @@
+﻿@model BridgetSandalsClient.Models.Category
+
+@{
+    Layout = "_DashboardLayout";
+}
+
+<h2 class="w-100">Add Category</h2>
+
+
+<div>
+    <div class="w-50">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input asp-for="Id" hidden />
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="d-flex w-100 justify-content-between">
+                <div class="form-group" style="width: 45%">
+                    <input type="submit" value="Create" class="btn btn-primary w-100" />
+                </div>
+                <div style="width: 45%">
+                    <a asp-action="Index" class="btn btn-success w-100 text-decoration-none" style="background-color: #60BE68;">Back to List</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
