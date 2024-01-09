@@ -3,59 +3,75 @@
 @{
     ViewData["Title"] = "Index";
 }
-
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductImageFilePath)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Quantity)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductId)
-            </td>
-            <td>
-                <div style="background-color: #ECE3D4; width: 60px; height: 60px">
-                    <img src="@item.ProductImageFilePath" width="60" height="60" alt="Product Image" />
+<div style="padding: 20px 10rem">
+    <div class="d-flex justify-content-between align-items-center">
+        <h1>Shopping Cart</h1>
+        <a class="p-1 rounded-3 text-danger" style="border: 1px solid red;" asp-controller="Product" asp-action="Index">Continue Shopping</a>
+    </div>
+    
+    @if (Model.Any())
+    {
+        @foreach (var item in Model)
+        {
+            <hr />
+            <div class="d-flex cart-item" data-price="@item.Price">
+                <div style="background-color: #ECE3D4; width: 120px; height: 120px; margin-right: 3rem">
+                    <img src="@item.ProductImageFilePath" width="120" height="120" alt="Product Image" />
                 </div>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Quantity)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+                <div class="w-100 d-flex justify-content-between">
+                    <div class="d-flex flex-column">
+                        <h5>@Html.DisplayFor(modelItem => item.ProductName)</h5>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex flex-column">
+                                <p- class="m-0">Quantity:</p->
+                                @Html.DropDownListFor(modelItem => item.Quantity, Enumerable.Range(1, 20).Select(x => new SelectListItem { Value = x.ToString(), Text = x.ToString() }), new { @class = "form-control quantityInput" })
+                            </div>
+                            <p class="text-dark">@Html.ActionLink("Delete", "Delete", new { id=item.ProductId })</p>
+                        </div>
+
+                    </div>
+                    <div>
+                        <p class="m-0">J$@Html.DisplayFor(modelItem => item.Price)</p>
+                    </div>
+                </div>
+            </div>
+        }
+        <hr />
+        <div id="cartTotalPrice" class="float-end fw-bold"></div><br /><br />
+        
+        <a class="btn p-3 rounded-pill float-end bg-danger" style="color: #ffffff" asp-controller="Product" asp-action="Index">Proceed to checkout</a>
+        
+        }
+    else
+    {
+        <p class="text-center mt-4">Your cart is empty.</p>
+    }
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        calculateTotalPrice(); // Calculate the initial total price on page load
+
+        $(".quantityInput").on("change", function () {
+            calculateTotalPrice();
+        });
+
+        function calculateTotalPrice() {
+            var totalPrice = 0;
+            $(".cart-item").each(function () {
+                var quantity = parseInt($(this).find(".quantityInput").val()) || 0;
+                var price = parseFloat($(this).data("price")) || 0;
+                var itemTotalPrice = quantity * price;
+                totalPrice += itemTotalPrice;
+
+                // Display individual item total price
+                $(this).find(".itemTotalPrice").text("Item Total: J$" + itemTotalPrice.toFixed(2));
+            });
+            $("#cartTotalPrice").text("Estimated Total: J$" + totalPrice.toFixed(2));
+        }
+    });
+</script>
+
+
+
