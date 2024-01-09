@@ -88,5 +88,11 @@ namespace BridgetSandalsClient.Controllers
 
             return itemCount;
         }
+
+
+        public IActionResult CheckOut()
+        {
+            return View();
+        }
     }
 }

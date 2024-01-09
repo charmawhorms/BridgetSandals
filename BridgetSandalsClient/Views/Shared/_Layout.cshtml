@@ -32,7 +32,7 @@
 </head>
 <body>
     <header>
-        <div class="px-5 py-1" style="background-color: #113034">
+        <div class="px-5 py-1 sticky-top" style="background-color: #113034">
             <div class="d-flex justify-content-between align-items-center">
                 <p class="domine-font f-12 m-0 fw-bold text-light">Shipping and delivery options are available</p>
                 <!--Feature for google translate-->
@@ -45,7 +45,7 @@
             </div>
         </div>
 
-        <div class="navbar-expand-sm navbar-toggleable-sm">
+        <div class="navbar-expand-sm navbar-toggleable-sm" style="background-color: #ffffff">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -135,6 +135,13 @@
             &copy; 2023 - BridgetSandalsClient - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>*@
+    <footer style="background-color: #113034; margin-top: 10%">
+        <div class="p-3">
+            <div class="container text-light">
+                &copy; 2023 - BridgetSandalsClient - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+        </div>
+    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
