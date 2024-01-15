@@ -99,7 +99,7 @@
 
 <div class="row w-100 mt-5 px-5 d-flex justify-content-between">
     <!--Displays the first four product from the collection-->
-    @foreach (var product in Model.Take(4))
+    @foreach (var product in Model.Take(12))
     {
         @await Html.PartialAsync("_IndividualProductCardView", product)
     }

@@ -22,7 +22,7 @@ namespace BridgetSandalsAPI.Controllers
         [HttpGet]
         public IActionResult GetOrderItems()
         {
-            var orderItems = _db.OrderItems.Include(x => x.Order).Include(x => x.Product).ToList();
+            var orderItems = _db.OrderItems.ToList();
             if (orderItems == null)
             {
                 return NotFound();

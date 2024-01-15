@@ -40,37 +40,13 @@ namespace BridgetSandalsAPI.Data
 
 
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            //modelBuilder.Entity<ProductDiscount>()
-            //    .HasKey(pd => new { pd.ProductId, pd.DiscountId });
-
-            //modelBuilder.Entity<ProductDiscount>()
-            //    .HasOne(pd => pd.Product)
-            //    .WithMany(p => p.ProductDiscounts)
-            //    .HasForeignKey(pd => pd.ProductId);
-
-            //modelBuilder.Entity<ProductDiscount>()
-            //    .HasOne(pd => pd.Discount)
-            //    .WithMany(d => d.ProductDiscounts)
-            //    .HasForeignKey(pd => pd.DiscountId);
-
-
-
-            base.OnModelCreating(modelBuilder);
-
-            modelBuilder.Entity<Order>()
-                .HasOne(o => o.Parish)
-                .WithMany()
-                .HasForeignKey(o => o.ShippingAddressParishId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-
-            //modelBuilder.Entity<Product>()
-            //    .HasMany(p => p.Variants)
-            //    .WithOne(v => v.Product)
-            //    .OnDelete(DeleteBehavior.Cascade);
-        }
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<OrderItem>()
+        //        .HasOne(oi => oi.Order)
+        //        .WithMany(o => o.OrderItems)
+        //        .HasForeignKey(oi => oi.OrderId);
+        //}
 
     }
 }

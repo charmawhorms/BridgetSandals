@@ -5,58 +5,95 @@
 }
 <div class="px-5">
     <h1>Checkout</h1>
-    <h5>Contact Information</h5>
+    
 
-    <div class="col-md-4">
-        <form asp-action="CheckOut">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <input asp-for="Id" hidden />
-            </div>
-            <div class="form-group">
+    <div class="w-100 d-flex justify-content-between">
+        <div class="p-5" style="width: 60%; border: 1px solid grey">
+            <form asp-action="PlaceOrder" asp-controller="Order" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <h5>Contact Information</h5>
+                <div class="form-group">
+                    <input asp-for="Id" hidden />
+                </div>
                 <label asp-for="CustomerName" class="control-label"></label>
                 <input asp-for="CustomerName" class="form-control" />
                 <span asp-validation-for="CustomerName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PhoneNumber" class="control-label"></label>
-                <input asp-for="PhoneNumber" class="form-control" />
-                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CardNumber" class="control-label"></label>
-                <input asp-for="CardNumber" class="form-control" />
-                <span asp-validation-for="CardNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ExpiryDate" class="control-label"></label>
-                <input asp-for="ExpiryDate" class="form-control" />
-                <span asp-validation-for="ExpiryDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CVV" class="control-label"></label>
-                <input asp-for="CVV" class="form-control" />
-                <span asp-validation-for="CVV" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NameOnCard" class="control-label"></label>
-                <input asp-for="NameOnCard" class="form-control" />
-                <span asp-validation-for="NameOnCard" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Continue" class="btn btn-outline-primary" />
-            </div>
-        </form>
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PhoneNumber" class="control-label"></label>
+                    <input asp-for="PhoneNumber" class="form-control" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-5">
+                    <label asp-for="Address" class="control-label"></label>
+                    <input asp-for="Address" class="form-control" />
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+                <h5>Payment</h5>
+                <div class="form-group">
+                    <label asp-for="CardNumber" class="control-label"></label>
+                    <input asp-for="CardNumber" class="form-control" />
+                    <span asp-validation-for="CardNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ExpiryDate" class="control-label"></label>
+                    <input asp-for="ExpiryDate" class="form-control" />
+                    <span asp-validation-for="ExpiryDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CVV" class="control-label"></label>
+                    <input asp-for="CVV" class="form-control" />
+                    <span asp-validation-for="CVV" class="text-danger"></span>
+                </div>
+                <div class="form-group- mb-5">
+                    <label asp-for="NameOnCard" class="control-label"></label>
+                    <input asp-for="NameOnCard" class="form-control" />
+                    <span asp-validation-for="NameOnCard" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <h5>Order Items</h5>
+                    @for (int i = 0; i < Model.OrderItems.Count; i++)
+                    {
+                        <input type="hidden" asp-for="OrderItems[i].ProductId" />
+                        <input type="hidden" asp-for="OrderItems[i].ProductName" />
+                        <input type="hidden" asp-for="OrderItems[i].ProductImageFilePath" />
+                        <input type="hidden" asp-for="OrderItems[i].Price" />
+                        <input type="hidden" asp-for="OrderItems[i].Quantity" />
+                    }
+
+
+                    <div class="form-group">
+                        <input type="submit" value="Order" class="btn btn-dark w-100" />
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="w-25 p-5" style="background-color: gainsboro">
+            <h5>Order Summary</h5>
+            @foreach (var item in Model.OrderItems)
+            {
+                <div class="d-flex justify-content-between">
+                    <div class="d-flex">
+                        <div style="position: relative; width: 80px; height: 80px; background-color: #ECE3D4;">
+                            <img src="@item.ProductImageFilePath" width="80" height="80" alt="Product Image" />
+                            <div style="position: absolute; top: 0; right: 0; background-color: grey; color: #ffffff; border-radius: 100%; padding: 5px;">
+                                @item.Quantity
+                            </div>
+                        </div>
+                        <p class="mx-2">@item.ProductName</p>
+                    </div>
+                    
+                    <p>$@item.Price</p>
+                </div>
+                <hr />
+            }
+
+            <p>Total Price: <span class="fw-bolder">J$@(Model.OrderItems.Sum(item => item.Price * item.Quantity))</span></p>
+        </div>
     </div>
 </div>
 

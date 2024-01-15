@@ -92,7 +92,20 @@ namespace BridgetSandalsClient.Controllers
 
         public IActionResult CheckOut()
         {
-            return View();
+            var cart = GetCart();
+            var order = new Order
+            {
+                OrderItems = cart.Select(item => new OrderItem
+                {
+                    ProductId = item.ProductId,
+                    ProductName = item.ProductName,
+                    ProductImageFilePath = item.ProductImageFilePath,
+                    Price = item.Price,
+                    Quantity = item.Quantity
+                }).ToList()
+            };
+
+            return View(order);
         }
     }
 }
