@@ -88,16 +88,20 @@ namespace BridgetSandalsAPI.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteOrder(int id)
         {
-            var order = _db.Orders.FirstOrDefault(x => x.Id == id);
+            var order = _db.Orders.Include(o => o.OrderItems).FirstOrDefault(x => x.Id == id);
             if (order == null)
             {
                 return NotFound("Order not found");
             }
+
+            // Manually delete associated order items
+            _db.OrderItems.RemoveRange(order.OrderItems);
 
             _db.Orders.Remove(order);
             _db.SaveChanges();
 
             return Ok(order);
         }
+
     }
 }

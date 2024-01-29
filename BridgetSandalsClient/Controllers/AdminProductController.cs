@@ -10,19 +10,38 @@ namespace BridgetSandalsClient.Controllers
     public class AdminProductController : Controller
     {
         Uri baseAddress = new Uri("https://localhost:7027/product");
+        Uri baseAddress2 = new Uri("https://localhost:7109/Auth");
         private readonly HttpClient _client;
+        private readonly HttpClient _client2;
 
         public AdminProductController()
         {
             _client = new HttpClient();
+            _client2 = new HttpClient();
             _client.BaseAddress = baseAddress;
+            _client2.BaseAddress = baseAddress2;
         }
 
-
+        //Method for token / session
+        [HttpGet]
+        private string RetrieveTokenFromSession()
+        {
+            string token = HttpContext.Session.GetString("SessionAuth")!;
+            return token;
+        }
 
         [HttpGet]
         public IActionResult Index()
         {
+            string token = RetrieveTokenFromSession();
+
+            if (string.IsNullOrEmpty(token))
+            {
+                //HttpContext.Session.SetString("returnUrl", returnUrl ?? Url.Content("~/"));
+                return RedirectToAction("Index", "Login");
+            }
+            _client2.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
             var response = _client.GetAsync(_client.BaseAddress).Result;
             var product = response.Content.ReadAsStringAsync().Result;
             var productList = JsonConvert.DeserializeObject<List<Product>>(product);
@@ -44,6 +63,15 @@ namespace BridgetSandalsClient.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            string token = RetrieveTokenFromSession();
+
+            if (string.IsNullOrEmpty(token))
+            {
+                //HttpContext.Session.SetString("returnUrl", returnUrl ?? Url.Content("~/"));
+                return RedirectToAction("Index", "Login");
+            }
+            _client2.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
             var categoryResponse = _client.GetAsync($"https://localhost:7027/category").Result;
             var categories = categoryResponse.Content.ReadAsStringAsync().Result;
 
@@ -86,6 +114,15 @@ namespace BridgetSandalsClient.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ProductVM vm)
         {
+            string token = RetrieveTokenFromSession();
+
+            if (string.IsNullOrEmpty(token))
+            {
+                //HttpContext.Session.SetString("returnUrl", returnUrl ?? Url.Content("~/"));
+                return RedirectToAction("Index", "Login");
+            }
+            _client2.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
             if (!ModelState.IsValid)
             {
                 var pVM = fetchDefault();
@@ -161,6 +198,15 @@ namespace BridgetSandalsClient.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
+            string token = RetrieveTokenFromSession();
+
+            if (string.IsNullOrEmpty(token))
+            {
+                //HttpContext.Session.SetString("returnUrl", returnUrl ?? Url.Content("~/"));
+                return RedirectToAction("Index", "Login");
+            }
+            _client2.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
             var response = _client.GetAsync($"{_client.BaseAddress}/{id}").Result;
 
             var response2 = response.Content.ReadAsStringAsync().Result;
@@ -199,6 +245,15 @@ namespace BridgetSandalsClient.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(ProductVM vm)
         {
+            string token = RetrieveTokenFromSession();
+
+            if (string.IsNullOrEmpty(token))
+            {
+                //HttpContext.Session.SetString("returnUrl", returnUrl ?? Url.Content("~/"));
+                return RedirectToAction("Index", "Login");
+            }
+            _client2.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
             if (!ModelState.IsValid)
             {
                 var pVM = fetchDefault();
@@ -238,6 +293,15 @@ namespace BridgetSandalsClient.Controllers
         [HttpGet]
         public IActionResult Delete(int id)
         {
+            string token = RetrieveTokenFromSession();
+
+            if (string.IsNullOrEmpty(token))
+            {
+                //HttpContext.Session.SetString("returnUrl", returnUrl ?? Url.Content("~/"));
+                return RedirectToAction("Index", "Login");
+            }
+            _client2.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
             Product product = new Product();
             HttpResponseMessage response = _client.GetAsync(_client.BaseAddress + "/" + id.ToString()).Result;
 
@@ -255,6 +319,15 @@ namespace BridgetSandalsClient.Controllers
         [HttpPost, ActionName("Delete"), ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            string token = RetrieveTokenFromSession();
+
+            if (string.IsNullOrEmpty(token))
+            {
+                //HttpContext.Session.SetString("returnUrl", returnUrl ?? Url.Content("~/"));
+                return RedirectToAction("Index", "Login");
+            }
+            _client2.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
             HttpResponseMessage response = await _client.DeleteAsync(_client.BaseAddress + "/" + id.ToString());
 
             if (response.IsSuccessStatusCode)

@@ -69,23 +69,15 @@
                             </a>
                         </li>
                         <li class="nav-item my-2 side-link">
-                            <a class="nav-link d-flex align-items-center" asp-area="" asp-controller="Payment" asp-action="Index">
+                            <a class="nav-link d-flex align-items-center" asp-area="" asp-controller="Order" asp-action="Index">
                                 <span class="material-symbols-outlined" style="margin-right: 10px; font-weight: 300">
                                     work_history
                                 </span>
                                 <p class="m-0" style="font-size: 14px">Orders</p>
                             </a>
                         </li>
-                        <li class="nav-item my-2 side-link">
-                            <a class="nav-link d-flex align-items-center" asp-area="" asp-controller="ClockInAndOut" asp-action="Index">
-                                <span class="material-symbols-outlined" style="margin-right: 10px; font-weight: 300">
-                                    punch_clock
-                                </span>
-                                <p class="m-0" style="font-size: 14px">Customers</p>
-                            </a>
-                        </li>
                         <li class="nav-item my-2 side-link" style="">
-                            <a class="nav-link d-flex align-items-center" asp-area="" asp-controller="Authenticate" asp-action="LogOut">
+                            <a class="nav-link d-flex align-items-center" asp-area="" asp-controller="Login" asp-action="LogOut">
                                 <span class="material-symbols-outlined" style="margin-right: 10px; font-weight: 300">
                                     logout
                                 </span>
@@ -100,11 +92,13 @@
             <div class="d-flex justify-content-between align-items-center" style="background-color: #ffffff; padding: 10px 40px; z-index: 99">
                 <h5 class="g-font-color fw-bold">@ViewData["Title"]</h5>
                 <div class="d-flex align-items-center">
-                    <input type="text" placeholder="Search" />
-                    <img src="~/assets/guy.jpg" width="40" height="40" class="rounded-circle me-2" />
+                    <input type="text" placeholder="Search" style="margin-right: 10px"/>
+                    <img id="profileImage" src="~/assets/guy.jpg" width="40" height="40" class="rounded-circle me-2" onclick="openFileInput()" style="cursor: pointer; border: 1px solid black" />
+                    <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeImage(event)" />
+
                     <div class="d-flex flex-column">
                         <h6 class="mb-0">Welcome</h6>
-                        <p class="mb-0" style="font-size: 12px">@ViewBag.LogInUser</p>
+                        <p class="mb-0" style="font-size: 12px">Admin</p>
                     </div>
 
                 </div>
@@ -116,6 +110,45 @@
             @RenderBody()
         </div>
     </div>
+
+
+    <script>
+        // Function to open file input
+        function openFileInput() {
+            document.getElementById('fileInput').click();
+        }
+
+        // Function to change the image source
+        function changeImage(event) {
+            var imageElement = document.getElementById('profileImage');
+            var fileInput = event.target;
+
+            if (fileInput.files && fileInput.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    // Update the image source with the selected file
+                    imageElement.src = e.target.result;
+
+                    // Store the selected image source in local storage
+                    localStorage.setItem('selectedImage', e.target.result);
+                };
+
+                // Read the selected file as a data URL
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+        }
+
+        // Function to set the image source from local storage on page load
+        window.onload = function () {
+            var storedImage = localStorage.getItem('selectedImage');
+            if (storedImage) {
+                document.getElementById('profileImage').src = storedImage;
+            }
+        };
+    </script>
+
+
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

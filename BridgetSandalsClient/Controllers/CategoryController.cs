@@ -9,18 +9,38 @@ namespace BridgetSandalsClient.Controllers
     public class CategoryController : Controller
     {
         Uri baseAddress = new Uri("https://localhost:7027/category");
+        Uri baseAddress2 = new Uri("https://localhost:7109/Auth");
         private readonly HttpClient _client;
+        private readonly HttpClient _client2;
 
         public CategoryController()
         {
             _client = new HttpClient();
+            _client2 = new HttpClient();
             _client.BaseAddress = baseAddress;
+            _client2.BaseAddress = baseAddress2;
         }
 
+        //Method for token / session
+        [HttpGet]
+        private string RetrieveTokenFromSession()
+        {
+            string token = HttpContext.Session.GetString("SessionAuth")!;
+            return token;
+        }
 
         [HttpGet]
         public IActionResult Index()
         {
+            string token = RetrieveTokenFromSession();
+
+            if (string.IsNullOrEmpty(token))
+            {
+                //HttpContext.Session.SetString("returnUrl", returnUrl ?? Url.Content("~/"));
+                return RedirectToAction("Index", "Login");
+            }
+            _client2.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
             var response = _client.GetAsync(_client.BaseAddress).Result;
 
             var category = response.Content.ReadAsStringAsync().Result;
@@ -33,6 +53,15 @@ namespace BridgetSandalsClient.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            string token = RetrieveTokenFromSession();
+
+            if (string.IsNullOrEmpty(token))
+            {
+                //HttpContext.Session.SetString("returnUrl", returnUrl ?? Url.Content("~/"));
+                return RedirectToAction("Index", "Login");
+            }
+            _client2.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
             return View();
         }
 
@@ -40,6 +69,15 @@ namespace BridgetSandalsClient.Controllers
         [HttpPost]
         public IActionResult Create(Category category)
         {
+            string token = RetrieveTokenFromSession();
+
+            if (string.IsNullOrEmpty(token))
+            {
+                //HttpContext.Session.SetString("returnUrl", returnUrl ?? Url.Content("~/"));
+                return RedirectToAction("Index", "Login");
+            }
+            _client2.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
             if (!ModelState.IsValid) return View(category);
 
             var json = JsonConvert.SerializeObject(category);
@@ -61,6 +99,15 @@ namespace BridgetSandalsClient.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
+            string token = RetrieveTokenFromSession();
+
+            if (string.IsNullOrEmpty(token))
+            {
+                //HttpContext.Session.SetString("returnUrl", returnUrl ?? Url.Content("~/"));
+                return RedirectToAction("Index", "Login");
+            }
+            _client2.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
             var response = _client.GetAsync($"{_client.BaseAddress}/{id}").Result;
             var response2 = response.Content.ReadAsStringAsync().Result;
             var category = JsonConvert.DeserializeObject<Category>(response2);
@@ -73,6 +120,15 @@ namespace BridgetSandalsClient.Controllers
         [HttpPost]
         public IActionResult Edit(Category category)
         {
+            string token = RetrieveTokenFromSession();
+
+            if (string.IsNullOrEmpty(token))
+            {
+                //HttpContext.Session.SetString("returnUrl", returnUrl ?? Url.Content("~/"));
+                return RedirectToAction("Index", "Login");
+            }
+            _client2.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
             var json = JsonConvert.SerializeObject(category);
             var data = new StringContent(json, Encoding.UTF8, "application/json");
             var response = _client.PutAsync($"{_client.BaseAddress}/{category.Id}", data).Result;
@@ -93,6 +149,15 @@ namespace BridgetSandalsClient.Controllers
         [HttpGet]
         public IActionResult Delete(int id)
         {
+            string token = RetrieveTokenFromSession();
+
+            if (string.IsNullOrEmpty(token))
+            {
+                //HttpContext.Session.SetString("returnUrl", returnUrl ?? Url.Content("~/"));
+                return RedirectToAction("Index", "Login");
+            }
+            _client2.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
             Category category = new Category();
             HttpResponseMessage response = _client.GetAsync(_client.BaseAddress + "/" + id.ToString()).Result;
 
@@ -108,6 +173,15 @@ namespace BridgetSandalsClient.Controllers
         [HttpPost, ActionName("Delete"), ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            string token = RetrieveTokenFromSession();
+
+            if (string.IsNullOrEmpty(token))
+            {
+                //HttpContext.Session.SetString("returnUrl", returnUrl ?? Url.Content("~/"));
+                return RedirectToAction("Index", "Login");
+            }
+            _client2.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
             HttpResponseMessage response = await _client.DeleteAsync(_client.BaseAddress + "/" + id.ToString());
 
             if (response.IsSuccessStatusCode)

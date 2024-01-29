@@ -34,6 +34,6 @@ namespace BridgetSandalsAPI.Models
         [Required]
         public string NameOnCard { get; set; }
 
-        public List<OrderItem> OrderItems { get; set; }
+        public virtual List<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
     }
 }

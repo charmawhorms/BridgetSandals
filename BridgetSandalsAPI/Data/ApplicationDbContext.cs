@@ -6,7 +6,7 @@ using System.Reflection.Emit;
 
 namespace BridgetSandalsAPI.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -47,6 +47,7 @@ namespace BridgetSandalsAPI.Data
         //        .WithMany(o => o.OrderItems)
         //        .HasForeignKey(oi => oi.OrderId);
         //}
+
 
     }
 }

@@ -4,6 +4,7 @@ using BridgetSandalsAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BridgetSandalsAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240128013239_update4")]
+    partial class update4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,7 +39,7 @@ namespace BridgetSandalsAPI.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Carts", (string)null);
+                    b.ToTable("Carts");
                 });
 
             modelBuilder.Entity("BridgetSandalsAPI.Models.CartItem", b =>
@@ -63,7 +65,7 @@ namespace BridgetSandalsAPI.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("CartItems", (string)null);
+                    b.ToTable("CartItems");
                 });
 
             modelBuilder.Entity("BridgetSandalsAPI.Models.Category", b =>
@@ -84,7 +86,7 @@ namespace BridgetSandalsAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("BridgetSandalsAPI.Models.Customer", b =>
@@ -130,7 +132,7 @@ namespace BridgetSandalsAPI.Migrations
 
                     b.HasIndex("ParishId");
 
-                    b.ToTable("Customer", (string)null);
+                    b.ToTable("Customer");
                 });
 
             modelBuilder.Entity("BridgetSandalsAPI.Models.Order", b =>
@@ -174,7 +176,7 @@ namespace BridgetSandalsAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Orders", (string)null);
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("BridgetSandalsAPI.Models.OrderItem", b =>
@@ -209,7 +211,7 @@ namespace BridgetSandalsAPI.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrderItems", (string)null);
+                    b.ToTable("OrderItems");
                 });
 
             modelBuilder.Entity("BridgetSandalsAPI.Models.Parish", b =>
@@ -226,7 +228,7 @@ namespace BridgetSandalsAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Parishes", (string)null);
+                    b.ToTable("Parishes");
                 });
 
             modelBuilder.Entity("BridgetSandalsAPI.Models.Product", b =>
@@ -266,7 +268,7 @@ namespace BridgetSandalsAPI.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("BridgetSandalsAPI.Models.Review", b =>
@@ -299,7 +301,7 @@ namespace BridgetSandalsAPI.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Reviews", (string)null);
+                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

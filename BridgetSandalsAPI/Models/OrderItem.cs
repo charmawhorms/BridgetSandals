@@ -17,5 +17,9 @@ namespace BridgetSandalsAPI.Models
         public decimal Price { get; set; }
 
         public int Quantity { get; set; }
+
+        [ForeignKey("OrderId")]
+        public int OrderId { get; set; }
+        public Order Order { get; set; }
     }
 }
